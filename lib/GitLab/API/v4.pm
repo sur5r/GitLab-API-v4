@@ -4105,6 +4105,7 @@ sub job_artifacts {
     croak 'The #1 argument ($project_id) to job_artifacts must be a scalar' if ref($_[0]) or (!defined $_[0]);
     croak 'The #2 argument ($job_id) to job_artifacts must be a scalar' if ref($_[1]) or (!defined $_[1]);
     my $options = {};
+    $options->{decode} = 0;
     return $self->_call_rest_client( 'GET', 'projects/:project_id/jobs/:job_id/artifacts', [@_], $options );
 }
 

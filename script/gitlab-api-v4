@@ -119,11 +119,17 @@ my $data = $api->$method(
 
 $data = $data->all() if $all;
 
-binmode STDOUT, ':utf8';
+binmode STDOUT;
 my $json = JSON::MaybeXS->new(allow_nonref => 1);
 $json->pretty() if $pretty;
 $json->canonical() if $canonical;
-print $json->encode( $data );
+if (ref($data) eq 'ARRAY') {
+    binmode STDOUT, ':utf8';
+    print $json->encode( $data );
+}
+else {
+    print $data;
+}
 
 __END__
 
